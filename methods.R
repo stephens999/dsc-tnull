@@ -1,11 +1,15 @@
 sourceDir("methods")
-methods=list()
-methods[[1]] = list(name="ash.hu",fn =ash.wrapper,args=list(mixcompdist="halfunif",method="fdr"))
-methods[[2]] = list(name="ash.hu.betaeff",fn =ash.betaeff.wrapper,args=list(mixcompdist="halfunif",method="fdr"))
-methods[[3]] = list(name="ash.hu.sigmaeff",fn =ash.sigmaeff.wrapper,args=list(mixcompdist="halfunif",method="fdr"))
-methods[[4]] = list(name="qvalue",fn =qvalue.wrapper)
-methods[[5]] = list(name="ash.hu.ES",fn =ash.wrapper,args=list(mixcompdist="halfunif",method="fdr",model="ES"))
 
+addMethod(dsc_tnull,name="qvalue",fn =qvalue.wrapper,outputtype="output")
 
-#methods[[2]] = list(name="ash.u",fn =ash.wrapper,args=list(mixcompdist="unif",method="fdr"))
-#methods[[3]] = list(name="ash.n",fn =ash.wrapper,args=list(mixcompdist="normal",method="fdr"))
+# addMethod(dsc_tnull,name="ash.n",fn =ash.wrapper,outputtype="output", args=list(mixcompdist="normal",method="fdr"))
+addMethod(dsc_tnull,name="ash.u",fn =ash.wrapper,outputtype="output", args=list(mixcompdist="uniform",method="fdr"))
+addMethod(dsc_tnull,name="ash.hu",fn =ash.wrapper,outputtype="output", args=list(mixcompdist="halfunif",method="fdr"))
+addMethod(dsc_tnull,name="ash.hu.betaeff",fn =ash.betaeff.wrapper,outputtype="output",args=list(mixcompdist="halfunif",method="fdr"))
+addMethod(dsc_tnull,name="ash.hu.sigmaeff",fn =ash.sigmaeff.wrapper,outputtype="output",args=list(mixcompdist="halfunif",method="fdr"))
+addMethod(dsc_tnull,name="ash.hu.ES",fn =ash.wrapper,outputtype="output",args=list(mixcompdist="halfunif",method="fdr",model="ES"))
+
+addMethod(dsc_tnull,name="vash.sing+qvalue",fn =vash_qval.wrapper,outputtype="output",args=list(singlecomp=TRUE))
+addMethod(dsc_tnull,name="vash.mix+qvalue",fn =vash_qval.wrapper,outputtype="output",args=list(singlecomp=FALSE))
+
+addMethod(dsc_tnull,name="vash.sing+ash.u",fn =vash_ash.wrapper,outputtype="output",args=list(mixcompdist="uniform",method="fdr"))
