@@ -13,11 +13,19 @@
 #' \item{dFDR}{The number of discoveries at tail FDR = 0.05}
 #'
 score = function(data, output){
-  return(list(RMSE=sqrt(mean((data$meta$beta-output$beta_est)^2)),
-              MAE = median(abs(data$meta$beta-output$beta_est)),
-              dFSR = sum(qval.from.lfdr(as.vector(output$lfsr))<0.05),
-              dFDR = sum(output$q<0.05),
-              pi0 = data$meta$pi0,
-              pi0_est = output$pi0_est)
-  )
+  if (class(output)=="try-error"){
+    return(list(RMSE=NA,
+                MAE = NA,
+                dFSR = NA,
+                dFDR = NA,
+                pi0 = NA,
+                pi0_est = NA))
+  }else{
+    return(list(RMSE=sqrt(mean((data$meta$beta-output$beta_est)^2)),
+                MAE = median(abs(data$meta$beta-output$beta_est)),
+                dFSR = sum(qval.from.lfdr(as.vector(output$lfsr))<0.05),
+                dFDR = sum(output$q<0.05),
+                pi0 = data$meta$pi0,
+                pi0_est = output$pi0_est))
+  }
 }
